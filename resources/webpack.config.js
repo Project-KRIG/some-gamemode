@@ -16,7 +16,6 @@ const server = {
     ],
   },
   plugins: [
-    new webpack.DefinePlugin({ "global.GENTLY": false }),
     new RemovePlugin({
       before: {
         include: [path.resolve(buildPath, "server")],
@@ -30,7 +29,7 @@ const server = {
     minimize: true,
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"],
+    extensions: [".ts", ".js"],
   },
   output: {
     filename: "[contenthash].server.js",
@@ -64,7 +63,7 @@ const client = {
     minimize: true,
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"],
+    extensions: [".ts", ".js"],
   },
   output: {
     filename: "[contenthash].client.js",

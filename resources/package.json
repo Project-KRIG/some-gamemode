@@ -5,8 +5,8 @@
   "author": "shit",
   "license": "MIT",
   "scripts": {
-    "build": "webpack --color --progress",
-    "watch": "webpack --mode development --watch true"
+    "build": "webpack --mode production --color --progress",
+    "watch": "webpack --mode development --watch"
   },
   "dependencies": {
     "@citizenfx/client": "^1.0.3575-1",
