@@ -1,2 +1,0 @@
-/*! For license information please see 0b1052d067d1ceb8f257.client.js.LICENSE.txt */
-(()=>{var __webpack_modules__={"./client/client.ts":()=>{eval("// Start coding\r\n\n\n//# sourceURL=webpack://ts/./client/client.ts?")}},__webpack_exports__={};__webpack_modules__["./client/client.ts"]()})();
