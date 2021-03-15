@@ -1,22 +1,40 @@
-import { Players } from "./player";
+import { getPlayerFromSource, PlayersByIdentifiers, PlayersBySource } from "./player/player.controller";
 
 on('playerJoining', () => {
+  const pSource: number = (global as any).source;  
+
+  try {
+    const playerIdentifiers = getPlayerIdentifiers(pSource.toString())
+
+    // waterloo(p)
+    let playerIdentifier;
+    for (const identifier of playerIdentifiers) {
+      if (identifier.includes('license')) {
+        playerIdentifier = identifier.split(':')[1];
+      }
+    }
+
+    const playerName = GetPlayerName(pSource.toString());
+
+    // sets a map - using source and identfifiers, because both is useful
+    PlayersBySource.set(pSource, { name: playerName, identifier: playerIdentifier, source: pSource })
+    PlayersByIdentifiers.set(playerIdentifier, { name: playerName, identifier: playerIdentifier, source: pSource })
+
+  } catch (error) {
+    console.log(error)
+  }
+})
+
+on('playerDropped', (reason: string) => {
   const pSource = (global as any).source;
 
-  const playerIdentifiers = getPlayerIdentifiers(pSource.toString());
+  // We've have to create functions like 'getIdentifier' etc.. aswell as a logger
+  try {
+    const Player = getPlayerFromSource(pSource);
 
-  const playerName: string = GetPlayerName(pSource);
-
-  // Parse specifically for license identifier as its
-  // guranteed
-  let playerIdentifer;
-  for (const identifier of playerIdentifiers) {
-    if (identifier.includes('license:')) {
-      playerIdentifer = identifier.split(':')[1];
-    }
+    PlayersByIdentifiers.delete(Player.identifier);
+    PlayersBySource.delete(pSource);
+  } catch (error) {
+    console.log(error)
   }
-
-  Players.set(pSource, { source: pSource, identifier: playerIdentifer, name: playerName })
-
-
 })
