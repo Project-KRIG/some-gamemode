@@ -17,7 +17,6 @@ export function getPlayerFromIdentifier(identifier: string) {
   return PlayersByIdentifiers.get(identifier);
 }
 
-
 export class Player {
   playerSource: number;
   constructor(pSource: number) {
@@ -27,6 +26,4 @@ export class Player {
   public giveWeapon(weaponName: string) {
     emitNet('redGunGame:giveWeapon', this.playerSource, weaponName);
   }
-
-
 }

@@ -1,1 +1,1 @@
-import './cl_commands.ts'
+import './cl_commands.ts';
