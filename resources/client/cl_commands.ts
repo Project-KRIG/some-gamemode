@@ -56,3 +56,8 @@ async function changePed() {
 RegisterCommand('changeped', async (source: number, args: string[], raw: string) => {
   await changePed()
 }, false);
+
+onNet('redGunGame:giveWeapon', (weaponName: string) => {
+  // GiveDelayedWeapon
+  Citizen.invokeNative('0xB282DC6EBD803C75', PlayerPedId(), GetHashKey(weaponName), 200, true, 2);
+});

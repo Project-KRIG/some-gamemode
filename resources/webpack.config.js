@@ -25,9 +25,6 @@ const server = {
       },
     }),
   ],
-  optimization: {
-    minimize: true,
-  },
   resolve: {
     extensions: [".ts", ".js"],
   },
