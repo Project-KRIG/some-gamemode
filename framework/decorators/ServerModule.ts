@@ -1,4 +1,4 @@
-export function ClientModule<T, K extends keyof T>(moduleSettings: {
+export function ServerModule<T, K extends keyof T>(moduleSettings: {
   name: string;
 }) {
   return function (target: Function) {
