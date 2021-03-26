@@ -1,8 +1,8 @@
 import {
+  getPlayerBySource,
   PlayersByIdentifier,
   PlayersBySource,
 } from '@/base/server/player/player.controller';
-import { getPlayerBySource } from '@/base/server/functions';
 
 on('playerJoining', () => {
   const pSource = (global as any).source;
