@@ -1,14 +1,13 @@
 import {
-  getPlayerFromSource,
-  PlayersByIdentifiers,
+  PlayersByIdentifier,
   PlayersBySource,
-} from './player.controller';
-import db from 'quick.db';
+} from '@/base/server/player/player.controller';
+import { getPlayerBySource } from '@/base/server/functions';
 
 on('playerJoining', () => {
   const pSource = (global as any).source;
 
-  const playerIdentifiers = getPlayerIdentifiers(source.toString());
+  const playerIdentifiers = getPlayerIdentifiers(pSource.toString());
 
   let playerLicense;
   for (const identifier of playerIdentifiers) {
@@ -16,7 +15,6 @@ on('playerJoining', () => {
       playerLicense = identifier.split(':')[1];
     }
   }
-
   const playerName = GetPlayerName(pSource);
 
   PlayersBySource.set(pSource, {
@@ -24,23 +22,22 @@ on('playerJoining', () => {
     identifier: playerLicense,
     name: playerName,
   });
-  PlayersByIdentifiers.set(playerLicense, {
+
+  PlayersByIdentifier.set(playerLicense, {
     source: pSource,
     identifier: playerLicense,
     name: playerName,
   });
 });
 
-on('playerDropped', (reason: string) => {
-  const pSource = (global as any).source;
+on('playerDropped', () => {
+  const pSource: number = (global as any).source;
+  const Player = getPlayerBySource(pSource);
 
-  // We've have to create functions like 'getIdentifier' etc.. aswell as a logger
   try {
-    const Player = getPlayerFromSource(pSource);
-
-    PlayersByIdentifiers.delete(Player.identifier);
     PlayersBySource.delete(pSource);
-  } catch (error) {
-    console.log(error);
+    PlayersByIdentifier.delete(Player.identifier);
+  } catch (err) {
+    console.log(err.message);
   }
 });
