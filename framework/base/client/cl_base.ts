@@ -8,3 +8,5 @@ class ClientBase {
     });
   }
 }
+
+export const Monkey = 'sucks';
